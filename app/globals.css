@@ -612,7 +612,11 @@ h3 {
   position: absolute;
   inset: 0;
   z-index: -2;
-  background: url("/assets/nivrix-creator-payments.webp") center / cover;
+  background-image: url("/assets/nivrix-creator-payments.webp");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   filter: saturate(1.1) contrast(1.06);
 }
 
@@ -1517,6 +1521,7 @@ h3 {
 
   .people-band-image {
     background-position: 54% center;
+    background-attachment: scroll;
   }
 
   .people-band::before {
