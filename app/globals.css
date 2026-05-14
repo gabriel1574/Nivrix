@@ -1618,6 +1618,41 @@ h3 {
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  .subpage .subpage-hero-copy {
+    animation: subpageCopyIn 720ms ease both;
+  }
+
+  .subpage .subpage-visual {
+    animation: subpageVisualIn 820ms ease 90ms both, subpageVisualFloat 6.4s ease-in-out 1s infinite;
+  }
+
+  .subpage .subpage-card,
+  .subpage .subpage-contact > * {
+    opacity: 0;
+    transform: translateY(24px);
+    animation: subpageItemIn 640ms ease both;
+  }
+
+  .subpage .subpage-card:nth-child(1) {
+    animation-delay: 120ms;
+  }
+
+  .subpage .subpage-card:nth-child(2) {
+    animation-delay: 210ms;
+  }
+
+  .subpage .subpage-card:nth-child(3) {
+    animation-delay: 300ms;
+  }
+
+  .subpage .subpage-contact > *:nth-child(1) {
+    animation-delay: 120ms;
+  }
+
+  .subpage .subpage-contact > *:nth-child(2) {
+    animation-delay: 220ms;
+  }
+
   .reveal,
   .stagger-item {
     opacity: 0;
@@ -1729,6 +1764,52 @@ h3 {
 
   50% {
     translate: 0 -10px;
+  }
+}
+
+@keyframes subpageCopyIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes subpageVisualIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.96) rotate(0deg);
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes subpageVisualFloat {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+
+  50% {
+    translate: 0 -8px;
+  }
+}
+
+@keyframes subpageItemIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
