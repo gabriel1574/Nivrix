@@ -234,7 +234,7 @@ function Header() {
   return (
     <header className={`site-header${isScrolled ? " is-scrolled" : ""}`}>
       <a className="brand" href="#inicio" aria-label="Nivrix início">
-        <img className="brand-logo" src="/assets/LOGO.svg" alt="Nivrix" />
+        <img className="brand-logo" src="/assets/LOGO.svg" alt="Nivrix" title="Nivrix" />
       </a>
 
       <nav className="nav-links" aria-label="Navegação principal">
@@ -343,6 +343,7 @@ export default function Home() {
             className="hero-image"
             src="/assets/nivrix-people-payments.webp"
             alt="Empreendedores digitais acompanhando pagamentos online em um ambiente moderno"
+            title="Empreendedores digitais acompanhando pagamentos online"
             fill
             priority
             fetchPriority="high"
@@ -414,6 +415,7 @@ export default function Home() {
               <Image
                 src="/assets/nivrix-ecommerce-payments.webp"
                 alt="Empreendedor de e-commerce acompanhando pagamentos aprovados"
+                title="Empreendedor de e-commerce acompanhando pagamentos aprovados"
                 fill
                 sizes="(max-width: 920px) 100vw, 50vw"
               />
@@ -585,7 +587,7 @@ export default function Home() {
 
       <footer className="site-footer">
         <a className="brand" href="#inicio" aria-label="Nivrix início">
-          <img className="brand-logo" src="/assets/LOGO.svg" alt="Nivrix" />
+          <img className="brand-logo" src="/assets/LOGO.svg" alt="Nivrix" title="Nivrix" />
         </a>
         <p>(c) 2026 Nivrix. Gateway de pagamentos moderno, tecnológico e confiável.</p>
       </footer>
