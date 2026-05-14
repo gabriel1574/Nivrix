@@ -114,6 +114,8 @@ const paymentSteps = [
 ];
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://nivrix.com";
+const publishedAt = "2026-05-14T00:00:00-03:00";
+const modifiedAt = "2026-05-14T19:15:00-03:00";
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -124,6 +126,7 @@ const structuredData = {
       name: "Nivrix",
       url: siteUrl,
       logo: `${siteUrl}/assets/LOGO.svg`,
+      image: `${siteUrl}/assets/nivrix-og.jpg`,
       description:
         "Gateway de pagamentos moderno para empresas digitais, e-commerces, criadores e negócios online.",
     },
@@ -151,7 +154,14 @@ const structuredData = {
       about: {
         "@id": `${siteUrl}/#service`,
       },
-      primaryImageOfPage: `${siteUrl}/assets/nivrix-people-payments.webp`,
+      datePublished: publishedAt,
+      dateModified: modifiedAt,
+      primaryImageOfPage: {
+        "@type": "ImageObject",
+        url: `${siteUrl}/assets/nivrix-og.jpg`,
+        width: 1200,
+        height: 630,
+      },
     },
     {
       "@type": "Service",

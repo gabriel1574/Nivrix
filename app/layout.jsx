@@ -2,6 +2,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://nivrix.com";
+const publishedAt = "2026-05-14T00:00:00-03:00";
+const modifiedAt = "2026-05-14T19:15:00-03:00";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -33,6 +35,10 @@ export const metadata = {
   publisher: "Nivrix",
   alternates: {
     canonical: "/",
+    languages: {
+      "pt-BR": "/",
+      "x-default": "/",
+    },
   },
   openGraph: {
     type: "website",
@@ -44,19 +50,25 @@ export const metadata = {
       "Gateway de pagamentos para empresas digitais, e-commerces e criadores venderem online com mais fluidez e confiança.",
     images: [
       {
-        url: "/assets/nivrix-people-payments.webp",
-        width: 1440,
-        height: 871,
+        url: "/assets/nivrix-og.jpg",
+        width: 1200,
+        height: 630,
         alt: "Nivrix gateway de pagamentos",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
+    site: "@nivrix",
     title: "Nivrix | Gateway de Pagamentos Moderno e Confiável",
     description:
       "Pagamentos digitais com checkout fluido, integração simples e operação confiável.",
-    images: ["/assets/nivrix-people-payments.webp"],
+    images: ["/assets/nivrix-og.jpg"],
+  },
+  other: {
+    "article:published_time": publishedAt,
+    "article:modified_time": modifiedAt,
+    "og:updated_time": modifiedAt,
   },
   icons: {
     icon: "/assets/LOGO.svg",
