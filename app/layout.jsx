@@ -1,14 +1,10 @@
-import { Inter } from "next/font/google";
-import "./globals.css";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://nivrix.com";
 const publishedAt = "2026-05-14T00:00:00-03:00";
 const modifiedAt = "2026-05-14T19:15:00-03:00";
-
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-});
+const globalStyles = readFileSync(join(process.cwd(), "app", "globals.css"), "utf8");
 
 export const metadata = {
   metadataBase: new URL(siteUrl),
@@ -95,7 +91,10 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="pt-BR">
-      <body className={inter.className}>{children}</body>
+      <head>
+        <style dangerouslySetInnerHTML={{ __html: globalStyles }} />
+      </head>
+      <body>{children}</body>
     </html>
   );
 }
