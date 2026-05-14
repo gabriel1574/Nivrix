@@ -706,7 +706,7 @@ h3 {
   color: var(--panel);
   background:
     linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(0, 64, 82, 0.72)),
-    url("/assets/nivrix-creator-payments.webp") center / cover;
+    url("/assets/nivrix-support-payments.webp") center / cover;
 }
 
 .band .section-heading p {
