@@ -39,6 +39,25 @@ export const navGroups = [
   },
 ];
 
+export const pageThemes = {
+  plataforma: {
+    className: "theme-platform",
+    image: "/assets/nivrix-people-payments.webp",
+  },
+  legal: {
+    className: "theme-legal",
+    image: "/assets/nivrix-cyan-wave-hero.webp",
+  },
+  institucional: {
+    className: "theme-institutional",
+    image: "/assets/nivrix-ecommerce-payments.webp",
+  },
+  contato: {
+    className: "theme-contact",
+    image: "/assets/nivrix-support-payments.webp",
+  },
+};
+
 export const pages = {
   "/plataforma": {
     eyebrow: "Plataforma",

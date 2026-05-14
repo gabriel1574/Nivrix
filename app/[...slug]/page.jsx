@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import ContactForm from "../components/ContactForm";
 import SiteFooter from "../components/SiteFooter";
 import SiteHeader from "../components/SiteHeader";
-import { pagePaths, pages, siteUrl } from "../content";
+import { pagePaths, pageThemes, pages, siteUrl } from "../content";
 
 export function generateStaticParams() {
   return pagePaths
@@ -47,24 +47,33 @@ export function generateMetadata({ params }) {
 export default function SubPage({ params }) {
   const path = `/${params.slug.join("/")}`;
   const page = pages[path];
+  const rootSection = params.slug[0];
+  const theme = pageThemes[rootSection] || pageThemes.plataforma;
 
   if (!page) notFound();
 
   return (
     <>
       <SiteHeader />
-      <main className="subpage">
+      <main className={`subpage ${theme.className}`}>
         <section className="subpage-hero">
-          <div className="section-kicker light">{page.eyebrow}</div>
-          <h1>{page.title}</h1>
-          <p>{page.description}</p>
-          <div className="hero-actions">
-            <a className="button button-primary" href="/contato">
-              Falar com a Nivrix
-            </a>
-            <a className="button button-secondary" href="/">
-              Voltar ao início
-            </a>
+          <div className="subpage-hero-copy">
+            <div className="section-kicker light">{page.eyebrow}</div>
+            <h1>{page.title}</h1>
+            <p>{page.description}</p>
+            <div className="hero-actions">
+              <a className="button button-primary" href="/contato">
+                Falar com a Nivrix
+              </a>
+              <a className="button button-secondary" href="/">
+                Voltar ao início
+              </a>
+            </div>
+          </div>
+
+          <div className="subpage-visual" aria-hidden="true">
+            <img src={theme.image} alt="" />
+            <span>{page.eyebrow}</span>
           </div>
         </section>
 

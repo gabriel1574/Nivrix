@@ -960,15 +960,23 @@ h3 {
 
 .subpage {
   color: var(--panel);
-  background: var(--black);
+  background: var(--paper);
 }
 
 .subpage-hero {
-  min-height: 620px;
-  padding: 162px max(30px, calc((100vw - 1180px) / 2)) 92px;
-  background:
-    linear-gradient(90deg, rgba(0, 0, 0, 0.9), rgba(0, 35, 48, 0.72)),
-    url("/assets/nivrix-cyan-wave-hero.webp") center / cover;
+  min-height: 660px;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(360px, 0.72fr);
+  gap: 64px;
+  align-items: center;
+  padding: 152px max(30px, calc((100vw - 1180px) / 2)) 88px;
+  overflow: hidden;
+  background: var(--subpage-bg, linear-gradient(135deg, #07131a, #04445b));
+}
+
+.subpage-hero-copy {
+  position: relative;
+  z-index: 1;
 }
 
 .subpage-hero h1 {
@@ -984,10 +992,103 @@ h3 {
   font-size: 21px;
 }
 
+.subpage-visual {
+  position: relative;
+  min-height: 430px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  box-shadow: 0 34px 90px rgba(0, 0, 0, 0.28);
+  transform: rotate(1.5deg);
+}
+
+.subpage-visual img {
+  width: 100%;
+  height: 100%;
+  min-height: 430px;
+  object-fit: cover;
+  filter: saturate(1.08) contrast(1.04);
+}
+
+.subpage-visual::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background:
+    linear-gradient(180deg, transparent 38%, rgba(0, 0, 0, 0.76) 100%),
+    var(--subpage-visual-wash, linear-gradient(120deg, rgba(9, 169, 230, 0.18), transparent));
+}
+
+.subpage-visual span {
+  position: absolute;
+  z-index: 1;
+  left: 22px;
+  bottom: 20px;
+  color: var(--panel);
+  font-size: 13px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.theme-platform {
+  --subpage-bg:
+    radial-gradient(circle at 86% 20%, rgba(0, 198, 255, 0.28), transparent 26%),
+    linear-gradient(135deg, #041014 0%, #063c51 52%, #02090d 100%);
+  --subpage-card-bg: #ffffff;
+  --subpage-content-bg: #eaf0f4;
+  --subpage-visual-wash: linear-gradient(120deg, rgba(9, 169, 230, 0.28), transparent 46%);
+}
+
+.theme-legal {
+  --subpage-bg:
+    linear-gradient(135deg, rgba(234, 240, 244, 0.96), rgba(216, 231, 240, 0.96)),
+    radial-gradient(circle at 88% 26%, rgba(9, 169, 230, 0.24), transparent 28%);
+  --subpage-card-bg: #f8fbfd;
+  --subpage-content-bg: #ffffff;
+  --subpage-visual-wash: linear-gradient(120deg, rgba(0, 0, 0, 0.12), rgba(9, 169, 230, 0.18));
+  color: var(--ink);
+}
+
+.theme-legal .subpage-hero {
+  color: var(--ink);
+}
+
+.theme-legal .section-kicker.light {
+  color: var(--cyan);
+}
+
+.theme-legal .subpage-hero p {
+  color: var(--muted);
+}
+
+.theme-legal .button-secondary {
+  color: var(--ink);
+  border-color: rgba(5, 6, 7, 0.16);
+  background: rgba(255, 255, 255, 0.66);
+}
+
+.theme-institutional {
+  --subpage-bg:
+    radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.18), transparent 26%),
+    linear-gradient(135deg, #05384c 0%, #0a1419 64%, #050607 100%);
+  --subpage-card-bg: #ffffff;
+  --subpage-content-bg: #dfe7ec;
+  --subpage-visual-wash: linear-gradient(120deg, rgba(255, 255, 255, 0.16), rgba(0, 198, 255, 0.18));
+}
+
+.theme-contact {
+  --subpage-bg:
+    linear-gradient(135deg, rgba(0, 0, 0, 0.84), rgba(0, 80, 108, 0.72)),
+    url("/assets/nivrix-support-payments.webp") center / cover;
+  --subpage-card-bg: #ffffff;
+  --subpage-content-bg: #eaf0f4;
+  --subpage-visual-wash: linear-gradient(120deg, rgba(9, 169, 230, 0.2), rgba(255, 255, 255, 0.08));
+}
+
 .subpage-content,
 .subpage-contact {
   padding: 92px max(30px, calc((100vw - 1180px) / 2));
-  background: var(--paper);
+  background: var(--subpage-content-bg, var(--paper));
   color: var(--ink);
 }
 
@@ -1000,10 +1101,23 @@ h3 {
 .subpage-card {
   min-height: 230px;
   padding: 28px;
-  background: var(--panel);
+  background: var(--subpage-card-bg, var(--panel));
   border: 1px solid var(--line);
   border-radius: 8px;
   box-shadow: 0 10px 36px rgba(5, 6, 7, 0.06);
+}
+
+.theme-legal .subpage-card {
+  border-left: 4px solid var(--cyan);
+  box-shadow: none;
+}
+
+.theme-institutional .subpage-card {
+  background: linear-gradient(180deg, #ffffff, #f4f8fb);
+}
+
+.theme-contact .subpage-content {
+  background: #ffffff;
 }
 
 .subpage-card span {
@@ -1408,6 +1522,8 @@ h3 {
 
   .subpage-hero {
     min-height: 540px;
+    grid-template-columns: 1fr;
+    gap: 34px;
     padding: 132px 18px 72px;
   }
 
@@ -1422,6 +1538,15 @@ h3 {
   .subpage-content,
   .subpage-contact {
     padding: 72px 18px;
+  }
+
+  .subpage-visual {
+    min-height: 300px;
+    transform: none;
+  }
+
+  .subpage-visual img {
+    min-height: 300px;
   }
 }
 
