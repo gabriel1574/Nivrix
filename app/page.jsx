@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import {
   BadgeCheck,
@@ -150,7 +151,7 @@ const structuredData = {
       about: {
         "@id": `${siteUrl}/#service`,
       },
-      primaryImageOfPage: `${siteUrl}/assets/nivrix-people-payments.png`,
+      primaryImageOfPage: `${siteUrl}/assets/nivrix-people-payments.webp`,
     },
     {
       "@type": "Service",
@@ -292,6 +293,20 @@ export default function Home() {
     });
   };
 
+  const submitContact = (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const nome = formData.get("nome") || "";
+    const email = formData.get("email") || "";
+    const projeto = formData.get("projeto") || "";
+    const body = [`Nome: ${nome}`, `E-mail: ${email}`, `Tipo de Negocio: ${projeto}`].join("\n");
+
+    window.location.href = `mailto:contato@nivrix.com?subject=${encodeURIComponent(
+      "Contato pelo site Nivrix",
+    )}&body=${encodeURIComponent(body)}`;
+  };
+
   return (
     <>
       <script
@@ -314,10 +329,14 @@ export default function Home() {
             "--hero-y": `${heroPointer.y}%`,
           }}
         >
-          <img
+          <Image
             className="hero-image"
-            src="/assets/nivrix-people-payments.png"
+            src="/assets/nivrix-people-payments.webp"
             alt="Empreendedores digitais acompanhando pagamentos online em um ambiente moderno"
+            fill
+            priority
+            fetchPriority="high"
+            sizes="100vw"
           />
           <div className="hero-shade" />
           <div className="hero-glow" aria-hidden="true" />
@@ -382,9 +401,11 @@ export default function Home() {
               </p>
             </div>
             <figure className="human-photo">
-              <img
-                src="/assets/nivrix-ecommerce-payments.png"
+              <Image
+                src="/assets/nivrix-ecommerce-payments.webp"
                 alt="Empreendedor de e-commerce acompanhando pagamentos aprovados"
+                fill
+                sizes="(max-width: 920px) 100vw, 50vw"
               />
               <figcaption>
                 <strong>Para pessoas reais vendendo todos os dias.</strong>
@@ -531,7 +552,7 @@ export default function Home() {
               </p>
             </div>
 
-            <form className="contact-form" action="mailto:contato@nivrix.com" method="post" encType="text/plain">
+            <form className="contact-form" onSubmit={submitContact}>
               <label>
                 Nome
                 <input type="text" name="nome" autoComplete="name" required />
