@@ -150,7 +150,7 @@ const structuredData = {
       about: {
         "@id": `${siteUrl}/#service`,
       },
-      primaryImageOfPage: `${siteUrl}/assets/nivrix-cyan-wave-hero.png`,
+      primaryImageOfPage: `${siteUrl}/assets/nivrix-people-payments.png`,
     },
     {
       "@type": "Service",
@@ -316,8 +316,8 @@ export default function Home() {
         >
           <img
             className="hero-image"
-            src="/assets/nivrix-cyan-wave-hero.png"
-            alt="Interface abstrata de gateway de pagamentos em preto e ciano"
+            src="/assets/nivrix-people-payments.png"
+            alt="Empreendedores digitais acompanhando pagamentos online em um ambiente moderno"
           />
           <div className="hero-shade" />
           <div className="hero-glow" aria-hidden="true" />
@@ -371,15 +371,37 @@ export default function Home() {
         </section>
 
         <section className="section intro-section reveal" aria-labelledby="intro-title">
-          <div className="section-kicker">Posicionamento</div>
-          <div className="split">
-            <div>
+          <div className="human-split">
+            <div className="intro-copy">
+              <div className="section-kicker">Posicionamento</div>
               <h2 id="intro-title">Tudo para receber pagamentos e crescer no digital.</h2>
+              <p>
+                Inspirada nas melhores plataformas globais de pagamento, a Nivrix organiza
+                checkout, integração, aprovação e acompanhamento em uma experiência única,
+                moderna e confiável para marcas que vendem pela internet.
+              </p>
             </div>
+            <figure className="human-photo">
+              <img
+                src="/assets/nivrix-people-payments.png"
+                alt="Equipe digital analisando vendas e pagamentos em um notebook"
+              />
+              <figcaption>
+                <strong>Para pessoas reais vendendo todos os dias.</strong>
+                <span>Menos fricção na compra, mais clareza para decidir.</span>
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section className="people-band reveal" aria-labelledby="people-title">
+          <div className="people-band-image" aria-hidden="true" />
+          <div className="people-band-content">
+            <div className="section-kicker light">Experiência</div>
+            <h2 id="people-title">Tecnologia que aproxima marca, comprador e aprovação.</h2>
             <p>
-              Inspirada nas melhores plataformas globais de pagamento, a Nivrix organiza
-              checkout, integração, aprovação e acompanhamento em uma experiência única,
-              moderna e confiável para marcas que vendem pela internet.
+              A Nivrix foi pensada para o momento em que alguém decide comprar:
+              rápido, claro e confiável para quem paga e para quem vende.
             </p>
           </div>
         </section>

@@ -44,9 +44,9 @@ export const metadata = {
       "Gateway de pagamentos para empresas digitais, e-commerces e criadores venderem online com mais fluidez e confiança.",
     images: [
       {
-        url: "/assets/nivrix-cyan-wave-hero.png",
-        width: 1717,
-        height: 916,
+        url: "/assets/nivrix-people-payments.png",
+        width: 1536,
+        height: 1024,
         alt: "Nivrix gateway de pagamentos",
       },
     ],
@@ -56,7 +56,7 @@ export const metadata = {
     title: "Nivrix | Gateway de Pagamentos Moderno e Confiável",
     description:
       "Pagamentos digitais com checkout fluido, integração simples e operação confiável.",
-    images: ["/assets/nivrix-cyan-wave-hero.png"],
+    images: ["/assets/nivrix-people-payments.png"],
   },
   icons: {
     icon: "/assets/LOGO.svg",
