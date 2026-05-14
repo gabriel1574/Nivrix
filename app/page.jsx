@@ -6,7 +6,6 @@ import {
   BadgeCheck,
   Building2,
   CreditCard,
-  Menu,
   Network,
   PlugZap,
   ShieldCheck,
@@ -14,13 +13,8 @@ import {
   UserRoundCheck,
   Zap,
 } from "lucide-react";
-
-const navLinks = [
-  { href: "#solucoes", label: "Plataforma" },
-  { href: "#metodo", label: "Vantagens" },
-  { href: "#clientes", label: "Clientes" },
-  { href: "#contato", label: "Contato" },
-];
+import SiteFooter from "./components/SiteFooter";
+import SiteHeader from "./components/SiteHeader";
 
 const indicators = [
   ["Conversão", "menos atrito no checkout"],
@@ -207,61 +201,6 @@ const structuredData = {
   ],
 };
 
-function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    const updateHeader = () => setIsScrolled(window.scrollY > 18);
-    updateHeader();
-    window.addEventListener("scroll", updateHeader, { passive: true });
-    return () => window.removeEventListener("scroll", updateHeader);
-  }, []);
-
-  useEffect(() => {
-    document.body.classList.toggle("nav-open", isMenuOpen);
-    return () => document.body.classList.remove("nav-open");
-  }, [isMenuOpen]);
-
-  useEffect(() => {
-    const onKeyDown = (event) => {
-      if (event.key === "Escape") setIsMenuOpen(false);
-    };
-    document.addEventListener("keydown", onKeyDown);
-    return () => document.removeEventListener("keydown", onKeyDown);
-  }, []);
-
-  return (
-    <header className={`site-header${isScrolled ? " is-scrolled" : ""}`}>
-      <a className="brand" href="#inicio" aria-label="Nivrix início">
-        <img className="brand-logo" src="/assets/LOGO.svg" alt="Nivrix" title="Nivrix" />
-      </a>
-
-      <nav className="nav-links" aria-label="Navegação principal">
-        {navLinks.map((link) => (
-          <a key={link.href} href={link.href} onClick={() => setIsMenuOpen(false)}>
-            {link.label}
-          </a>
-        ))}
-      </nav>
-
-      <a className="header-cta" href="#contato">
-        Começar Agora
-      </a>
-
-      <button
-        className="menu-button"
-        type="button"
-        aria-label="Abrir menu"
-        aria-expanded={isMenuOpen}
-        onClick={() => setIsMenuOpen((current) => !current)}
-      >
-        <Menu aria-hidden="true" />
-      </button>
-    </header>
-  );
-}
-
 export default function Home() {
   const [activePaymentStep, setActivePaymentStep] = useState(0);
   const [heroPointer, setHeroPointer] = useState({ x: 74, y: 42 });
@@ -326,7 +265,7 @@ export default function Home() {
         }}
       />
 
-      <Header />
+      <SiteHeader />
 
       <main>
         <section
@@ -361,10 +300,10 @@ export default function Home() {
               online com uma experiência de pagamento rápida, segura e feita para converter.
             </p>
             <div className="hero-actions">
-              <a className="button button-primary" href="#contato">
+              <a className="button button-primary" href="/contato">
                 Solicitar Acesso
               </a>
-              <a className="button button-secondary" href="#solucoes">
+              <a className="button button-secondary" href="/plataforma">
                 Conhecer Plataforma
               </a>
             </div>
@@ -549,7 +488,7 @@ export default function Home() {
                 <Icon aria-hidden="true" />
                 <h3>{title}</h3>
                 <p>{text}</p>
-                <a href="#contato">{cta}</a>
+                <a href="/contato">{cta}</a>
               </article>
             ))}
           </div>
@@ -587,12 +526,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="site-footer">
-        <a className="brand" href="#inicio" aria-label="Nivrix início">
-          <img className="brand-logo" src="/assets/LOGO.svg" alt="Nivrix" title="Nivrix" />
-        </a>
-        <p>(c) 2026 Nivrix. Gateway de pagamentos moderno, tecnológico e confiável.</p>
-      </footer>
+      <SiteFooter />
     </>
   );
 }

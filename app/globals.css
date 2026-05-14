@@ -102,8 +102,14 @@ textarea {
   gap: 8px;
 }
 
-.nav-links a {
+.nav-group {
   position: relative;
+}
+
+.nav-links a,
+.nav-group > a {
+  position: relative;
+  display: inline-flex;
   padding: 9px 12px;
   border-radius: 7px;
   color: rgba(51, 51, 51, 0.78);
@@ -112,10 +118,41 @@ textarea {
   transition: color 180ms ease, background 180ms ease, transform 180ms ease;
 }
 
-.nav-links a:hover {
+.nav-links a:hover,
+.nav-group > a:hover {
   color: var(--black);
   background: rgba(9, 169, 230, 0.12);
   transform: translateY(-1px);
+}
+
+.nav-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  display: grid;
+  min-width: 245px;
+  padding: 8px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid rgba(5, 6, 7, 0.08);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  transition: opacity 180ms ease, transform 180ms ease, visibility 180ms ease;
+}
+
+.nav-group:hover .nav-dropdown,
+.nav-group:focus-within .nav-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.nav-dropdown a {
+  display: block;
+  padding: 10px 12px;
+  color: rgba(51, 51, 51, 0.8);
 }
 
 .header-cta {
@@ -902,7 +939,97 @@ h3 {
 }
 
 .site-footer p {
-  margin: 0;
+  margin: 12px 0 0;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.footer-links a {
+  color: rgba(255, 255, 255, 0.72);
+  font-weight: 800;
+}
+
+.footer-links a:hover {
+  color: var(--cyan);
+}
+
+.subpage {
+  color: var(--panel);
+  background: var(--black);
+}
+
+.subpage-hero {
+  min-height: 620px;
+  padding: 162px max(30px, calc((100vw - 1180px) / 2)) 92px;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.9), rgba(0, 35, 48, 0.72)),
+    url("/assets/nivrix-cyan-wave-hero.webp") center / cover;
+}
+
+.subpage-hero h1 {
+  width: min(820px, 100%);
+  margin-bottom: 24px;
+  font-size: clamp(48px, 7vw, 92px);
+}
+
+.subpage-hero p {
+  width: min(680px, 100%);
+  margin-bottom: 30px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 21px;
+}
+
+.subpage-content,
+.subpage-contact {
+  padding: 92px max(30px, calc((100vw - 1180px) / 2));
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.subpage-content {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.subpage-card {
+  min-height: 230px;
+  padding: 28px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 10px 36px rgba(5, 6, 7, 0.06);
+}
+
+.subpage-card span {
+  display: block;
+  margin-bottom: 28px;
+  color: var(--cyan);
+  font-size: 13px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.subpage-card p {
+  color: var(--muted);
+  font-size: 18px;
+}
+
+.subpage-contact {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(320px, 0.7fr);
+  gap: 68px;
+  align-items: start;
+}
+
+.subpage-contact p {
+  color: var(--muted);
+  font-size: 18px;
 }
 
 @media (max-width: 920px) {
@@ -958,6 +1085,29 @@ h3 {
     box-shadow: var(--shadow);
   }
 
+  .nav-group {
+    display: grid;
+  }
+
+  .nav-dropdown {
+    position: static;
+    display: none;
+    min-width: 0;
+    padding: 0 0 8px 12px;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .nav-group:hover .nav-dropdown,
+  .nav-group:focus-within .nav-dropdown,
+  body.nav-open .nav-dropdown {
+    display: grid;
+  }
+
   body.nav-open .nav-links {
     display: flex;
   }
@@ -971,6 +1121,11 @@ h3 {
   .nav-links a:hover {
     color: var(--panel);
     background: rgba(255, 255, 255, 0.16);
+  }
+
+  .nav-dropdown a {
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 13px;
   }
 
   .hero {
@@ -1005,7 +1160,8 @@ h3 {
   .section-heading,
   .proof-section,
   .contact-panel,
-  .stats-section {
+  .stats-section,
+  .subpage-contact {
     grid-template-columns: 1fr;
     gap: 28px;
   }
@@ -1021,6 +1177,10 @@ h3 {
   .proof-item {
     grid-template-columns: 1fr;
     gap: 6px;
+  }
+
+  .subpage-content {
+    grid-template-columns: 1fr;
   }
 
   .human-photo {
@@ -1240,6 +1400,28 @@ h3 {
     flex-direction: column;
     align-items: flex-start;
     padding: 26px 18px;
+  }
+
+  .footer-links {
+    justify-content: flex-start;
+  }
+
+  .subpage-hero {
+    min-height: 540px;
+    padding: 132px 18px 72px;
+  }
+
+  .subpage-hero h1 {
+    font-size: 46px;
+  }
+
+  .subpage-hero p {
+    font-size: 18px;
+  }
+
+  .subpage-content,
+  .subpage-contact {
+    padding: 72px 18px;
   }
 }
 
