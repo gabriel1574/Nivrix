@@ -383,8 +383,8 @@ export default function Home() {
             </div>
             <figure className="human-photo">
               <img
-                src="/assets/nivrix-people-payments.png"
-                alt="Equipe digital analisando vendas e pagamentos em um notebook"
+                src="/assets/nivrix-ecommerce-payments.png"
+                alt="Empreendedor de e-commerce acompanhando pagamentos aprovados"
               />
               <figcaption>
                 <strong>Para pessoas reais vendendo todos os dias.</strong>

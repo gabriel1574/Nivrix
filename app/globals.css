@@ -575,7 +575,7 @@ h3 {
   position: absolute;
   inset: 0;
   z-index: -2;
-  background: url("/assets/nivrix-people-payments.png") center / cover;
+  background: url("/assets/nivrix-creator-payments.png") center / cover;
   filter: saturate(1.1) contrast(1.06);
 }
 
@@ -695,12 +695,18 @@ h3 {
   color: var(--muted);
 }
 
-.band,
-.contact-section {
+.band {
   color: var(--panel);
   background:
     linear-gradient(135deg, rgba(0, 0, 0, 0.92), rgba(0, 64, 82, 0.78)),
-    url("/assets/nivrix-people-payments.png") center / cover;
+    url("/assets/nivrix-cyan-wave-hero.png") center / cover;
+}
+
+.contact-section {
+  color: var(--panel);
+  background:
+    linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(0, 64, 82, 0.72)),
+    url("/assets/nivrix-creator-payments.png") center / cover;
 }
 
 .band .section-heading p {
