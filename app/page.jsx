@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import {
+  BadgeCheck,
   Building2,
   CreditCard,
   Menu,
@@ -105,6 +106,96 @@ const clients = [
   },
 ];
 
+const paymentSteps = [
+  "Pedido recebido",
+  "Risco analisado",
+  "Pagamento aprovado",
+];
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://nivrix.com";
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${siteUrl}/#organization`,
+      name: "Nivrix",
+      url: siteUrl,
+      logo: `${siteUrl}/assets/LOGO.svg`,
+      description:
+        "Gateway de pagamentos moderno para empresas digitais, e-commerces, criadores e negócios online.",
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      url: siteUrl,
+      name: "Nivrix",
+      inLanguage: "pt-BR",
+      publisher: {
+        "@id": `${siteUrl}/#organization`,
+      },
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${siteUrl}/#webpage`,
+      url: siteUrl,
+      name: "Nivrix | Gateway de Pagamentos Moderno e Confiável",
+      description:
+        "Gateway de pagamentos para empresas digitais, e-commerces e criadores venderem online com mais fluidez e confiança.",
+      inLanguage: "pt-BR",
+      isPartOf: {
+        "@id": `${siteUrl}/#website`,
+      },
+      about: {
+        "@id": `${siteUrl}/#service`,
+      },
+      primaryImageOfPage: `${siteUrl}/assets/nivrix-cyan-wave-hero.png`,
+    },
+    {
+      "@type": "Service",
+      "@id": `${siteUrl}/#service`,
+      name: "Gateway de Pagamentos Nivrix",
+      serviceType: "Gateway de pagamentos",
+      provider: {
+        "@id": `${siteUrl}/#organization`,
+      },
+      areaServed: {
+        "@type": "Country",
+        name: "Brasil",
+      },
+      audience: [
+        {
+          "@type": "Audience",
+          audienceType: "E-commerces",
+        },
+        {
+          "@type": "Audience",
+          audienceType: "Infoprodutores e criadores",
+        },
+        {
+          "@type": "Audience",
+          audienceType: "SaaS, marketplaces e assinaturas",
+        },
+      ],
+      description:
+        "Checkout, integração de pagamentos, acompanhamento de vendas e estrutura para negócios digitais venderem online.",
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "Soluções Nivrix",
+        itemListElement: services.map(({ title, text }) => ({
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: title,
+            description: text,
+          },
+        })),
+      },
+    },
+  ],
+};
+
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -161,18 +252,75 @@ function Header() {
 }
 
 export default function Home() {
+  const [activePaymentStep, setActivePaymentStep] = useState(0);
+  const [heroPointer, setHeroPointer] = useState({ x: 74, y: 42 });
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActivePaymentStep((current) => (current + 1) % paymentSteps.length);
+    }, 1900);
+
+    return () => window.clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) return undefined;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.18, rootMargin: "0px 0px -8% 0px" },
+    );
+
+    document.querySelectorAll(".reveal, .stagger-item").forEach((element) => observer.observe(element));
+
+    return () => observer.disconnect();
+  }, []);
+
+  const updateHeroPointer = (event) => {
+    const bounds = event.currentTarget.getBoundingClientRect();
+    setHeroPointer({
+      x: ((event.clientX - bounds.left) / bounds.width) * 100,
+      y: ((event.clientY - bounds.top) / bounds.height) * 100,
+    });
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData),
+        }}
+      />
+
       <Header />
 
       <main>
-        <section className="hero" id="inicio" aria-labelledby="hero-title">
+        <section
+          className="hero"
+          id="inicio"
+          aria-labelledby="hero-title"
+          onPointerMove={updateHeroPointer}
+          style={{
+            "--hero-x": `${heroPointer.x}%`,
+            "--hero-y": `${heroPointer.y}%`,
+          }}
+        >
           <img
             className="hero-image"
             src="/assets/nivrix-cyan-wave-hero.png"
             alt="Interface abstrata de gateway de pagamentos em preto e ciano"
           />
           <div className="hero-shade" />
+          <div className="hero-glow" aria-hidden="true" />
 
           <div className="hero-content">
             <p className="eyebrow">Gateway de Pagamentos</p>
@@ -190,13 +338,31 @@ export default function Home() {
               </a>
             </div>
           </div>
+
+          <aside className="payment-widget" aria-label="Simulação de pagamento aprovado">
+            <div className="payment-widget-top">
+              <span>Checkout ao vivo</span>
+              <BadgeCheck aria-hidden="true" />
+            </div>
+            <div className="payment-amount">R$ 842,90</div>
+            <div className="payment-progress" aria-hidden="true">
+              <span style={{ width: `${((activePaymentStep + 1) / paymentSteps.length) * 100}%` }} />
+            </div>
+            <div className="payment-steps">
+              {paymentSteps.map((step, index) => (
+                <span className={index <= activePaymentStep ? "is-active" : ""} key={step}>
+                  {step}
+                </span>
+              ))}
+            </div>
+          </aside>
         </section>
 
-        <section className="hero-strip" aria-label="Indicadores Nivrix">
+        <section className="hero-strip reveal" aria-label="Indicadores Nivrix">
           <p>Construída para negócios digitais que precisam vender com confiança</p>
           <div className="hero-strip-grid">
             {indicators.map(([title, text]) => (
-              <div key={title}>
+              <div className="stagger-item interactive-surface" key={title}>
                 <strong>{title}</strong>
                 <span>{text}</span>
               </div>
@@ -204,7 +370,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section intro-section" aria-labelledby="intro-title">
+        <section className="section intro-section reveal" aria-labelledby="intro-title">
           <div className="section-kicker">Posicionamento</div>
           <div className="split">
             <div>
@@ -218,16 +384,18 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="trust-section" aria-label="Tipos de negócios atendidos pela Nivrix">
+        <section className="trust-section reveal" aria-label="Tipos de negócios atendidos pela Nivrix">
           <p>Construída para negócios digitais que precisam vender com confiança</p>
           <div className="trust-logos">
             {businessTypes.map((type) => (
-              <span key={type}>{type}</span>
+              <span className="stagger-item interactive-surface" key={type}>
+                {type}
+              </span>
             ))}
           </div>
         </section>
 
-        <section className="section solutions-section" id="solucoes" aria-labelledby="solutions-title">
+        <section className="section solutions-section reveal" id="solucoes" aria-labelledby="solutions-title">
           <div className="section-heading">
             <div>
               <div className="section-kicker">Plataforma</div>
@@ -241,7 +409,7 @@ export default function Home() {
 
           <div className="service-grid">
             {services.map(({ icon: Icon, title, text }) => (
-              <article className="service-card" key={title}>
+              <article className="service-card stagger-item interactive-surface" key={title}>
                 <Icon aria-hidden="true" />
                 <h3>{title}</h3>
                 <p>{text}</p>
@@ -250,7 +418,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="band method-section" id="metodo" aria-labelledby="method-title">
+        <section className="band method-section reveal" id="metodo" aria-labelledby="method-title">
           <div className="section-heading">
             <div>
               <div className="section-kicker light">Vantagens</div>
@@ -264,7 +432,7 @@ export default function Home() {
 
           <div className="timeline">
             {steps.map(([number, title, text]) => (
-              <article key={number}>
+              <article className="stagger-item interactive-surface" key={number}>
                 <span>{number}</span>
                 <h3>{title}</h3>
                 <p>{text}</p>
@@ -273,14 +441,14 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="stats-section" aria-labelledby="stats-title">
+        <section className="stats-section reveal" aria-labelledby="stats-title">
           <div>
             <div className="section-kicker">Performance</div>
             <h2 id="stats-title">Uma operação de pagamento com sinais claros de evolução.</h2>
           </div>
           <div className="stats-grid">
             {stats.map(([title, text]) => (
-              <div key={title}>
+              <div className="stagger-item interactive-surface" key={title}>
                 <strong>{title}</strong>
                 <span>{text}</span>
               </div>
@@ -288,7 +456,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section proof-section" aria-labelledby="proof-title">
+        <section className="section proof-section reveal" aria-labelledby="proof-title">
           <div>
             <div className="section-kicker">Diferenciais</div>
             <h2 id="proof-title">Tecnologia para vender melhor, com uma presença segura.</h2>
@@ -296,7 +464,7 @@ export default function Home() {
 
           <div className="proof-grid">
             {proofItems.map(([title, text]) => (
-              <div className="proof-item" key={title}>
+              <div className="proof-item stagger-item" key={title}>
                 <strong>{title}</strong>
                 <span>{text}</span>
               </div>
@@ -304,7 +472,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section clients-section" id="clientes" aria-labelledby="clients-title">
+        <section className="section clients-section reveal" id="clientes" aria-labelledby="clients-title">
           <div className="section-heading">
             <div>
               <div className="section-kicker">Quem São Nossos Clientes?</div>
@@ -320,7 +488,7 @@ export default function Home() {
 
           <div className="client-grid">
             {clients.map(({ icon: Icon, title, text, cta }) => (
-              <article className="client-card" key={title}>
+              <article className="client-card stagger-item interactive-surface" key={title}>
                 <Icon aria-hidden="true" />
                 <h3>{title}</h3>
                 <p>{text}</p>
@@ -330,7 +498,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="contact-section" id="contato" aria-labelledby="contact-title">
+        <section className="contact-section reveal" id="contato" aria-labelledby="contact-title">
           <div className="contact-panel">
             <div>
               <div className="section-kicker light">Contato</div>
