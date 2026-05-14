@@ -347,6 +347,7 @@ export default function Home() {
             fill
             priority
             fetchPriority="high"
+            quality={62}
             sizes="100vw"
           />
           <div className="hero-shade" />
@@ -417,7 +418,8 @@ export default function Home() {
                 alt="Empreendedor de e-commerce acompanhando pagamentos aprovados"
                 title="Empreendedor de e-commerce acompanhando pagamentos aprovados"
                 fill
-                sizes="(max-width: 920px) 100vw, 50vw"
+                quality={58}
+                sizes="(max-width: 640px) calc(100vw - 36px), (max-width: 920px) calc(100vw - 48px), 495px"
               />
               <figcaption>
                 <strong>Para pessoas reais vendendo todos os dias.</strong>
