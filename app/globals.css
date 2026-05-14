@@ -157,7 +157,7 @@ textarea {
 
 .header-cta {
   padding: 11px 16px;
-  color: #00131b;
+  color: var(--panel);
   background: var(--cyan);
   border-radius: 7px;
   font-size: 14px;
@@ -304,7 +304,7 @@ h3 {
 }
 
 .button-primary {
-  color: #00131b;
+  color: var(--panel);
   background: var(--cyan);
   box-shadow: 0 16px 36px rgba(9, 169, 230, 0.26);
 }
