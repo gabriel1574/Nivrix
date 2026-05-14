@@ -1085,6 +1085,48 @@ h3 {
   --subpage-visual-wash: linear-gradient(120deg, rgba(9, 169, 230, 0.2), rgba(255, 255, 255, 0.08));
 }
 
+.page-plataforma-checkout .subpage-visual,
+.page-legal-politica-de-cookies .subpage-visual {
+  transform: rotate(-1.2deg);
+}
+
+.page-plataforma-api .subpage-visual,
+.page-legal-politica-de-privacidade .subpage-visual {
+  transform: translateY(18px);
+}
+
+.page-plataforma-gestao .subpage-visual,
+.page-legal-termos-de-servico .subpage-visual {
+  transform: rotate(1deg) translateY(-10px);
+}
+
+.page-institucional-trabalhe-conosco .subpage-visual,
+.page-institucional-imprensa .subpage-visual {
+  border-radius: 0;
+}
+
+.page-legal .subpage-content,
+.page-legal-termos-de-uso .subpage-content,
+.page-legal-termos-de-servico .subpage-content,
+.page-legal-politica-de-privacidade .subpage-content,
+.page-legal-politica-de-cookies .subpage-content,
+.page-legal-seguranca .subpage-content {
+  grid-template-columns: 1fr;
+}
+
+.page-legal .subpage-card,
+.page-legal-termos-de-uso .subpage-card,
+.page-legal-termos-de-servico .subpage-card,
+.page-legal-politica-de-privacidade .subpage-card,
+.page-legal-politica-de-cookies .subpage-card,
+.page-legal-seguranca .subpage-card {
+  min-height: auto;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
 .subpage-content,
 .subpage-contact {
   padding: 92px max(30px, calc((100vw - 1180px) / 2));
@@ -1547,6 +1589,16 @@ h3 {
 
   .subpage-visual img {
     min-height: 300px;
+  }
+
+  .page-legal .subpage-card,
+  .page-legal-termos-de-uso .subpage-card,
+  .page-legal-termos-de-servico .subpage-card,
+  .page-legal-politica-de-privacidade .subpage-card,
+  .page-legal-politica-de-cookies .subpage-card,
+  .page-legal-seguranca .subpage-card {
+    grid-template-columns: 1fr;
+    gap: 8px;
   }
 }
 

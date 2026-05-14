@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import ContactForm from "../components/ContactForm";
 import SiteFooter from "../components/SiteFooter";
 import SiteHeader from "../components/SiteHeader";
-import { pagePaths, pageThemes, pages, siteUrl } from "../content";
+import { pageImages, pagePaths, pageThemes, pages, siteUrl } from "../content";
 
 export function generateStaticParams() {
   return pagePaths
@@ -49,13 +49,15 @@ export default function SubPage({ params }) {
   const page = pages[path];
   const rootSection = params.slug[0];
   const theme = pageThemes[rootSection] || pageThemes.plataforma;
+  const pageImage = pageImages[path] || theme.image;
+  const pageClass = path.replace(/^\//, "").replace(/\//g, "-") || "home";
 
   if (!page) notFound();
 
   return (
     <>
       <SiteHeader />
-      <main className={`subpage ${theme.className}`}>
+      <main className={`subpage ${theme.className} page-${pageClass}`}>
         <section className="subpage-hero">
           <div className="subpage-hero-copy">
             <div className="section-kicker light">{page.eyebrow}</div>
@@ -72,7 +74,7 @@ export default function SubPage({ params }) {
           </div>
 
           <div className="subpage-visual" aria-hidden="true">
-            <img src={theme.image} alt="" />
+            <img src={pageImage} alt="" />
             <span>{page.eyebrow}</span>
           </div>
         </section>

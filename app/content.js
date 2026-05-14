@@ -58,6 +58,26 @@ export const pageThemes = {
   },
 };
 
+export const pageImages = {
+  "/plataforma": "/assets/nivrix-people-payments.webp",
+  "/plataforma/checkout": "/assets/nivrix-checkout-hero.webp",
+  "/plataforma/api": "/assets/nivrix-api-hero.webp",
+  "/plataforma/seguranca": "/assets/nivrix-security-hero.webp",
+  "/plataforma/gestao": "/assets/nivrix-dashboard-hero.webp",
+  "/legal": "/assets/nivrix-cyan-wave-hero.webp",
+  "/legal/termos-de-uso": "/assets/nivrix-security-hero.webp",
+  "/legal/termos-de-servico": "/assets/nivrix-dashboard-hero.webp",
+  "/legal/politica-de-privacidade": "/assets/nivrix-api-hero.webp",
+  "/legal/politica-de-cookies": "/assets/nivrix-checkout-hero.webp",
+  "/legal/seguranca": "/assets/nivrix-support-payments.webp",
+  "/institucional": "/assets/nivrix-team-hero.webp",
+  "/institucional/sobre": "/assets/nivrix-people-payments.webp",
+  "/institucional/trabalhe-conosco": "/assets/nivrix-creator-payments.webp",
+  "/institucional/imprensa": "/assets/nivrix-press-hero.webp",
+  "/institucional/asg": "/assets/nivrix-ecommerce-payments.webp",
+  "/contato": "/assets/nivrix-support-payments.webp",
+};
+
 export const pages = {
   "/plataforma": {
     eyebrow: "Plataforma",
