@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   --ink: #333333;
   --muted: #4b4f54;
   --paper: #eaf0f4;
@@ -405,7 +405,7 @@ h3 {
   color: var(--panel);
   background:
     linear-gradient(135deg, rgba(0, 0, 0, 0.92), rgba(0, 64, 82, 0.78)),
-    url("assets/nivrix-cyan-wave-hero.png") center / cover;
+    url("/assets/nivrix-cyan-wave-hero.png") center / cover;
 }
 
 .band .section-heading p {
@@ -747,3 +747,4 @@ h3 {
     padding: 26px 18px;
   }
 }
+
