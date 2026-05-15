@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import ContactForm from "../components/ContactForm";
 import SiteFooter from "../components/SiteFooter";
 import SiteHeader from "../components/SiteHeader";
@@ -74,8 +75,17 @@ export default function SubPage({ params }) {
             </div>
           </div>
 
-          <div className="subpage-visual" aria-hidden="true">
-            <img src={pageImage} alt="" />
+          <div className="subpage-visual">
+            <Image
+              src={pageImage}
+              alt={`${page.eyebrow} da Nivrix`}
+              title={page.title}
+              fill
+              priority
+              fetchPriority="high"
+              quality={60}
+              sizes="(max-width: 640px) calc(100vw - 36px), (max-width: 920px) calc(100vw - 60px), 42vw"
+            />
             <span>{page.eyebrow}</span>
           </div>
         </section>
