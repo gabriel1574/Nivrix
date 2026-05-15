@@ -187,12 +187,17 @@ textarea {
   position: relative;
   display: grid;
   align-items: center;
+  justify-items: center;
   min-height: 92vh;
   padding: 118px max(30px, calc((100vw - 1180px) / 2)) 76px;
   overflow: hidden;
   color: var(--panel);
   background: var(--black);
   isolation: isolate;
+}
+
+.hero::after {
+  display: none;
 }
 
 .hero-image,
@@ -204,6 +209,10 @@ textarea {
 }
 
 .hero-image {
+  max-width: none;
+  min-width: 100%;
+  min-height: 100%;
+  height: 100% !important;
   object-fit: cover;
   animation: heroImageDrift 16s ease-in-out infinite alternate;
 }
@@ -231,8 +240,12 @@ textarea {
   position: relative;
   z-index: 2;
   width: min(690px, 100%);
-  padding-bottom: 76px;
-  transform: translateY(-42px);
+  justify-self: center;
+  padding-bottom: 0;
+  top: auto;
+  margin-top: 0;
+  text-align: center;
+  transform: none;
   animation: heroContentIn 760ms ease both;
 }
 
@@ -282,6 +295,8 @@ h3 {
 
 .hero-copy {
   max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: 30px;
   color: rgba(255, 255, 255, 0.82);
   font-size: 21px;
@@ -290,6 +305,7 @@ h3 {
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 12px;
 }
 
@@ -333,7 +349,8 @@ h3 {
 .payment-widget {
   position: absolute;
   z-index: 3;
-  top: 50%;
+  top: auto;
+  bottom: 76px;
   right: max(30px, calc((100vw - 1180px) / 2));
   width: min(330px, 32vw);
   padding: 20px;
@@ -343,7 +360,7 @@ h3 {
   border-radius: 10px;
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.32);
   backdrop-filter: blur(18px);
-  transform: translateY(-28%);
+  transform: none;
   animation: floatWidget 5.8s ease-in-out infinite, widgetIn 760ms ease both;
 }
 
@@ -1000,6 +1017,10 @@ h3 {
   font-size: 21px;
 }
 
+.subpage-hero .hero-actions {
+  justify-content: flex-start;
+}
+
 .subpage-visual {
   position: relative;
   min-height: 450px;
@@ -1013,6 +1034,7 @@ h3 {
 .subpage-visual img {
   width: 100%;
   height: 100%;
+  max-width: none;
   min-height: 450px;
   object-fit: cover;
   object-position: center;
@@ -1296,7 +1318,7 @@ h3 {
 
 .cookie-banner {
   position: fixed;
-  z-index: 40;
+  z-index: 2147483647;
   left: 24px;
   right: 24px;
   bottom: 24px;
@@ -1447,6 +1469,39 @@ h3 {
 
   body.nav-open .nav-links {
     display: grid;
+    animation: mobileMenuIn 260ms ease both;
+  }
+
+  body.nav-open .nav-group {
+    animation: mobileNavItemIn 360ms ease both;
+  }
+
+  body.nav-open .nav-group:nth-child(2) {
+    animation-delay: 60ms;
+  }
+
+  body.nav-open .nav-group:nth-child(3) {
+    animation-delay: 120ms;
+  }
+
+  body.nav-open .nav-group:nth-child(4) {
+    animation-delay: 180ms;
+  }
+
+  body.nav-open .nav-dropdown a {
+    animation: mobileSubnavItemIn 340ms ease both;
+  }
+
+  body.nav-open .nav-dropdown a:nth-child(2) {
+    animation-delay: 50ms;
+  }
+
+  body.nav-open .nav-dropdown a:nth-child(3) {
+    animation-delay: 100ms;
+  }
+
+  body.nav-open .nav-dropdown a:nth-child(4) {
+    animation-delay: 150ms;
   }
 
   .nav-links a {
@@ -1489,7 +1544,8 @@ h3 {
   .hero-content {
     width: min(640px, 100%);
     padding-bottom: 0;
-    transform: translateY(-12px);
+    margin-top: 0;
+    transform: none;
     animation: tabletHeroContentIn 660ms ease both;
   }
 
@@ -1597,14 +1653,29 @@ h3 {
   }
 
   .hero {
-    min-height: 94svh;
+    min-height: 0;
+    height: 92vh;
+    height: 92dvh;
+    height: 92svh;
     padding-top: 108px;
     padding-left: 18px;
     padding-right: 18px;
-    padding-bottom: 46px;
-    align-items: center;
+    padding-bottom: 118px;
+    align-items: start;
     background:
       linear-gradient(150deg, #043246 0%, #078cc1 42%, #021820 100%);
+  }
+
+  .hero::after {
+    position: absolute;
+    z-index: 4;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: block;
+    height: 58px;
+    content: "";
+    background: var(--paper);
   }
 
   .hero-image {
@@ -1630,8 +1701,11 @@ h3 {
   .hero-content {
     width: 100%;
     max-width: 390px;
-    padding: 24px 0 0;
-    transform: translateY(-10px);
+    justify-self: center;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+    transform: none;
     animation: mobileHeroContentIn 620ms ease both;
   }
 
@@ -1654,6 +1728,8 @@ h3 {
 
   .hero-copy {
     max-width: 360px;
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: 24px;
     color: rgba(255, 255, 255, 0.92);
     font-size: 18px;
@@ -1768,15 +1844,19 @@ h3 {
   }
 
   .subpage-hero {
-    min-height: 540px;
+    position: relative;
+    min-height: auto;
     grid-template-columns: 1fr;
     gap: 34px;
-    padding: 132px 18px 72px;
+    padding: 148px 18px 64px;
+    overflow: hidden;
     text-align: center;
     justify-items: center;
   }
 
   .subpage-hero-copy {
+    position: relative;
+    z-index: 2;
     width: min(430px, 100%);
     margin: 0 auto;
   }
@@ -1794,6 +1874,7 @@ h3 {
 
   .subpage-hero .hero-actions {
     align-items: center;
+    justify-content: flex-start;
   }
 
   .subpage-content,
@@ -1822,10 +1903,14 @@ h3 {
   .cookie-banner {
     left: 12px;
     right: 12px;
-    bottom: 12px;
+    bottom: max(12px, env(safe-area-inset-bottom));
     grid-template-columns: 1fr;
     gap: 16px;
+    width: auto;
+    max-height: calc(100svh - 24px);
     padding: 16px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
 
   .cookie-actions {
@@ -1837,16 +1922,33 @@ h3 {
   }
 
   .subpage-visual {
+    position: relative;
+    z-index: 1;
+    width: min(430px, 100%);
+    aspect-ratio: 4 / 3;
     min-height: 300px;
+    border-radius: 8px;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.24);
     transform: none;
+    background: #06151c;
+    opacity: 1;
   }
 
   .subpage-visual img {
+    width: 100%;
+    height: 100% !important;
+    max-width: none;
     min-height: 300px;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .subpage-visual span {
+    display: none;
   }
 
   .page-legal-politica-de-cookies .subpage-visual img {
-    object-position: 74% center;
+    object-position: center;
   }
 
   .page-legal .subpage-card,
@@ -1858,12 +1960,37 @@ h3 {
     grid-template-columns: 1fr;
     gap: 8px;
   }
+
+  .subpage-card,
+  .legal-topic,
+  .subpage-contact > *,
+  .hero-strip-grid > *,
+  .stats-grid > *,
+  .proof-grid > * {
+    animation: mobileSectionItemIn 520ms ease both;
+  }
+
+  .subpage-card:nth-child(2),
+  .legal-topic:nth-child(2),
+  .hero-strip-grid > *:nth-child(2),
+  .stats-grid > *:nth-child(2),
+  .proof-grid > *:nth-child(2) {
+    animation-delay: 80ms;
+  }
+
+  .subpage-card:nth-child(3),
+  .legal-topic:nth-child(3),
+  .hero-strip-grid > *:nth-child(3),
+  .stats-grid > *:nth-child(3),
+  .proof-grid > *:nth-child(3) {
+    animation-delay: 150ms;
+  }
 }
 
 @media (max-width: 380px) {
   .hero {
-    padding-top: 100px;
-    padding-bottom: 42px;
+    padding-top: 96px;
+    padding-bottom: 104px;
   }
 
   h1 {
@@ -1974,12 +2101,12 @@ h3 {
 @keyframes heroContentIn {
   from {
     opacity: 0;
-    transform: translateY(-18px);
+    transform: translateY(36px);
   }
 
   to {
     opacity: 1;
-    transform: translateY(-42px);
+    transform: translateY(0);
   }
 }
 
@@ -1991,7 +2118,7 @@ h3 {
 
   to {
     opacity: 1;
-    transform: translateY(-12px);
+    transform: translateY(0);
   }
 }
 
@@ -2010,12 +2137,12 @@ h3 {
 @keyframes widgetIn {
   from {
     opacity: 0;
-    transform: translateY(-22%) translateX(18px);
+    transform: translateX(18px);
   }
 
   to {
     opacity: 1;
-    transform: translateY(-28%) translateX(0);
+    transform: translateX(0);
   }
 }
 
@@ -2068,6 +2195,54 @@ h3 {
   from {
     opacity: 0;
     transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes mobileMenuIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+@keyframes mobileNavItemIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes mobileSubnavItemIn {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes mobileSectionItemIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
   }
 
   to {

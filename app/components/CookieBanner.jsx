@@ -1,22 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const consentCookieName = "nivrix_cookie_consent";
 
 function saveConsent(value) {
   const maxAge = 60 * 60 * 24 * 180;
   document.cookie = `${consentCookieName}=${value}; Max-Age=${maxAge}; Path=/; SameSite=Lax`;
-  window.localStorage.setItem(consentCookieName, value);
+
+  try {
+    window.localStorage.setItem(consentCookieName, value);
+  } catch {
+    // The cookie already stores the preference when localStorage is unavailable.
+  }
 }
 
 export default function CookieBanner() {
   const [isVisible, setIsVisible] = useState(true);
-
-  useEffect(() => {
-    const consent = window.localStorage.getItem(consentCookieName);
-    setIsVisible(!consent);
-  }, []);
 
   const chooseConsent = (value) => {
     saveConsent(value);
