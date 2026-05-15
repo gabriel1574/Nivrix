@@ -1,5 +1,6 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
+import CookieBanner from "./components/CookieBanner";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://nivrix.com";
 const publishedAt = "2026-05-14T00:00:00-03:00";
@@ -94,7 +95,10 @@ export default function RootLayout({ children }) {
       <head>
         <style dangerouslySetInnerHTML={{ __html: globalStyles }} />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <CookieBanner />
+      </body>
     </html>
   );
 }

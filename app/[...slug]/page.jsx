@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import ContactForm from "../components/ContactForm";
 import SiteFooter from "../components/SiteFooter";
 import SiteHeader from "../components/SiteHeader";
-import { pageImages, pagePaths, pageThemes, pages, siteUrl } from "../content";
+import { legalDocuments, pageImages, pagePaths, pageThemes, pages, siteUrl } from "../content";
 
 export function generateStaticParams() {
   return pagePaths
@@ -51,6 +51,7 @@ export default function SubPage({ params }) {
   const theme = pageThemes[rootSection] || pageThemes.plataforma;
   const pageImage = pageImages[path] || theme.image;
   const pageClass = path.replace(/^\//, "").replace(/\//g, "-") || "home";
+  const legalDocument = legalDocuments[path];
 
   if (!page) notFound();
 
@@ -79,14 +80,31 @@ export default function SubPage({ params }) {
           </div>
         </section>
 
-        <section className="subpage-content" aria-label={`Conteúdo sobre ${page.eyebrow}`}>
-          {page.sections.map(([title, text]) => (
-            <article className="subpage-card interactive-surface" key={title}>
-              <span>{title}</span>
-              <p>{text}</p>
+        {legalDocument ? (
+          <section className="legal-document-section" aria-label={`Documento ${page.eyebrow}`}>
+            <article className="legal-document">
+              <p className="legal-updated">{legalDocument.updatedAt}</p>
+              <p className="legal-intro">{legalDocument.intro}</p>
+              {legalDocument.sections.map((section) => (
+                <section className="legal-topic" key={section.title}>
+                  <h2>{section.title}</h2>
+                  {section.body.map((paragraph) => (
+                    <p key={paragraph}>{paragraph}</p>
+                  ))}
+                </section>
+              ))}
             </article>
-          ))}
-        </section>
+          </section>
+        ) : (
+          <section className="subpage-content" aria-label={`Conteúdo sobre ${page.eyebrow}`}>
+            {page.sections.map(([title, text]) => (
+              <article className="subpage-card interactive-surface" key={title}>
+                <span>{title}</span>
+                <p>{text}</p>
+              </article>
+            ))}
+          </section>
+        )}
 
         {path === "/contato" && (
           <section className="subpage-contact" aria-labelledby="contact-page-title">
