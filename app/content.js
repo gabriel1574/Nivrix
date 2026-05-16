@@ -42,15 +42,15 @@ export const navGroups = [
 export const pageThemes = {
   plataforma: {
     className: "theme-platform",
-    image: "/assets/nivrix-people-payments.webp",
+    image: "/assets/nivrix-dashboard-hero.webp",
   },
   legal: {
     className: "theme-legal",
-    image: "/assets/nivrix-cyan-wave-hero.webp",
+    image: "/assets/nivrix-docs-legal-hero.webp",
   },
   institucional: {
     className: "theme-institutional",
-    image: "/assets/nivrix-ecommerce-payments.webp",
+    image: "/assets/nivrix-team-hero.webp",
   },
   contato: {
     className: "theme-contact",
@@ -59,18 +59,18 @@ export const pageThemes = {
 };
 
 export const pageImages = {
-  "/plataforma": "/assets/nivrix-people-payments.webp",
-  "/plataforma/checkout": "/assets/nivrix-checkout-hero.webp",
+  "/plataforma": "/assets/nivrix-dashboard-hero.webp",
+  "/plataforma/checkout": "/assets/nivrix-ecommerce-payments.webp",
   "/plataforma/api": "/assets/nivrix-api-hero.webp",
-  "/plataforma/seguranca": "/assets/nivrix-security-hero.webp",
+  "/plataforma/seguranca": "/assets/nivrix-legal-security-unique-hero.webp",
   "/plataforma/gestao": "/assets/nivrix-dashboard-hero.webp",
   "/legal": "/assets/nivrix-docs-legal-hero.webp",
   "/legal/termos-de-uso": "/assets/nivrix-use-terms-unique-hero.webp",
   "/legal/termos-de-servico": "/assets/nivrix-service-terms-unique-hero.webp",
   "/legal/politica-de-privacidade": "/assets/nivrix-privacy-legal-hero.webp",
-  "/legal/politica-de-cookies": "/assets/nivrix-cyan-wave-hero.webp",
+  "/legal/politica-de-cookies": "/assets/nivrix-docs-legal-hero.webp",
   "/legal/seguranca": "/assets/nivrix-legal-security-unique-hero.webp",
-  "/institucional": "/assets/nivrix-institutional-new-hero.webp",
+  "/institucional": "/assets/nivrix-team-hero.webp",
   "/institucional/sobre": "/assets/nivrix-about-unique-hero.webp",
   "/institucional/trabalhe-conosco": "/assets/nivrix-careers-unique-hero.webp",
   "/institucional/imprensa": "/assets/nivrix-press-hero.webp",

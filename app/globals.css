@@ -1063,7 +1063,7 @@ h3 {
   min-height: 450px;
   object-fit: cover;
   object-position: center;
-  filter: saturate(1.08) contrast(1.04);
+  filter: saturate(1.16) contrast(1.08) brightness(1.02);
 }
 
 .subpage-visual::after {
@@ -1165,6 +1165,29 @@ h3 {
 .page-legal .subpage-visual img,
 .page-legal-politica-de-privacidade .subpage-visual img {
   object-position: center center;
+}
+
+.page-plataforma .subpage-visual img,
+.page-plataforma-gestao .subpage-visual img {
+  object-position: 58% center;
+}
+
+.page-plataforma-checkout .subpage-visual img {
+  object-position: 52% center;
+}
+
+.page-plataforma-api .subpage-visual img {
+  object-position: 50% center;
+}
+
+.page-plataforma-seguranca .subpage-visual img {
+  object-position: 54% center;
+}
+
+.page-institucional .subpage-visual img,
+.page-institucional-sobre .subpage-visual img,
+.page-institucional-trabalhe-conosco .subpage-visual img {
+  object-position: 48% center;
 }
 
 .page-legal-politica-de-cookies .subpage-visual {
@@ -1681,7 +1704,7 @@ h3 {
     padding-left: 18px;
     padding-right: 18px;
     padding-bottom: 118px;
-    align-items: start;
+    align-items: center;
     background:
       linear-gradient(150deg, #043246 0%, #078cc1 42%, #021820 100%);
   }
@@ -1849,6 +1872,18 @@ h3 {
     min-height: auto;
   }
 
+  .stats-grid div {
+    min-height: 132px;
+    padding: 22px 24px;
+  }
+
+  .stats-grid strong {
+    margin-bottom: 14px;
+    font-size: 20px;
+    line-height: 1.12;
+    text-shadow: none;
+  }
+
   .timeline span {
     margin-bottom: 28px;
   }
@@ -2009,7 +2044,7 @@ h3 {
 
 @media (max-width: 380px) {
   .hero {
-    padding-top: 96px;
+    padding-top: 104px;
     padding-bottom: 104px;
   }
 
@@ -2019,6 +2054,10 @@ h3 {
 
   .hero-copy {
     font-size: 16px;
+  }
+
+  .stats-grid strong {
+    font-size: 19px;
   }
 }
 
@@ -2302,6 +2341,20 @@ h3 {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .stats-section .stats-grid strong {
+    margin-bottom: 10px !important;
+    font-size: 18px !important;
+    line-height: 1.16 !important;
+    text-shadow: none !important;
+  }
+
+  .stats-section .stats-grid div {
+    min-height: 112px !important;
+    padding: 18px 20px !important;
   }
 }
 
