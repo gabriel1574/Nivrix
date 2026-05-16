@@ -8,10 +8,32 @@ export default function SiteHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    const updateHeader = () => setIsScrolled(window.scrollY > 18);
+    let frame = 0;
+    let lastValue = false;
+
+    const updateHeader = () => {
+      const nextValue = window.scrollY > 18;
+      if (nextValue === lastValue) return;
+
+      lastValue = nextValue;
+      setIsScrolled(nextValue);
+    };
+
+    const onScroll = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(() => {
+        updateHeader();
+        frame = 0;
+      });
+    };
+
     updateHeader();
-    window.addEventListener("scroll", updateHeader, { passive: true });
-    return () => window.removeEventListener("scroll", updateHeader);
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
   }, []);
 
   useEffect(() => {

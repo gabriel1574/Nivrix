@@ -4,6 +4,21 @@ import { useState } from "react";
 
 const consentCookieName = "nivrix_cookie_consent";
 
+function hasConsentChoice() {
+  if (typeof document === "undefined") return false;
+
+  const cookieExists = document.cookie
+    .split(";")
+    .some((cookie) => cookie.trim().startsWith(`${consentCookieName}=`));
+  if (cookieExists) return true;
+
+  try {
+    return window.localStorage.getItem(consentCookieName) !== null;
+  } catch {
+    return false;
+  }
+}
+
 function saveConsent(value) {
   const maxAge = 60 * 60 * 24 * 180;
   document.cookie = `${consentCookieName}=${value}; Max-Age=${maxAge}; Path=/; SameSite=Lax`;
@@ -16,7 +31,7 @@ function saveConsent(value) {
 }
 
 export default function CookieBanner() {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(() => !hasConsentChoice());
 
   const chooseConsent = (value) => {
     saveConsent(value);

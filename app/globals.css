@@ -226,7 +226,7 @@ textarea {
   min-height: 100%;
   height: 100% !important;
   object-fit: cover;
-  animation: heroImageDrift 16s ease-in-out infinite alternate;
+  transform: translateZ(0);
 }
 
 .hero-shade {
@@ -245,7 +245,6 @@ textarea {
   mix-blend-mode: screen;
   opacity: 0.86;
   pointer-events: none;
-  transition: background 120ms linear;
 }
 
 .hero-content {
@@ -389,7 +388,7 @@ h3 {
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.32);
   backdrop-filter: blur(18px);
   transform: none;
-  animation: floatWidget 5.8s ease-in-out infinite, widgetIn 760ms ease both;
+  animation: widgetIn 760ms ease both;
 }
 
 .payment-widget::before {
@@ -664,7 +663,7 @@ h3 {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-attachment: scroll;
   filter: saturate(1.1) contrast(1.06);
 }
 
@@ -725,7 +724,6 @@ h3 {
   transform: translateX(120%);
   transition: opacity 180ms ease, transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
   pointer-events: none;
-  will-change: opacity, transform;
 }
 
 .interactive-surface:hover {
@@ -775,7 +773,6 @@ h3 {
 
 .service-card:hover svg,
 .client-card:hover svg {
-  filter: drop-shadow(0 0 14px rgba(var(--cyan-rgb), 0.38));
   transform: translateY(-3px) scale(1.05);
 }
 
@@ -793,9 +790,8 @@ h3 {
 
 .contact-section {
   color: var(--panel);
-  background:
-    linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(var(--teal-rgb), 0.72)),
-    url("/assets/nivrix-support-payments.webp") center / cover;
+  background: linear-gradient(135deg, #050607 0%, #0d2940 58%, #143e61 100%);
+  contain: paint;
 }
 
 .band .section-heading p {
@@ -895,6 +891,7 @@ h3 {
 
 .clients-section {
   background: var(--paper);
+  contain: paint;
 }
 
 .client-card {
@@ -930,7 +927,7 @@ h3 {
   display: grid;
   gap: 14px;
   padding: 28px;
-  background: rgba(234, 240, 244, 0.08);
+  background: rgba(6, 16, 22, 0.62);
   border: 1px solid rgba(var(--cyan-rgb), 0.22);
   border-radius: 8px;
 }
@@ -988,6 +985,7 @@ h3 {
   padding: 28px max(30px, calc((100vw - 1180px) / 2));
   color: rgba(255, 255, 255, 0.78);
   background: var(--black);
+  contain: paint;
 }
 
 .site-footer p {
@@ -1381,11 +1379,11 @@ h3 {
   margin: 0 auto;
   padding: 20px;
   color: var(--ink);
-  background: rgba(255, 255, 255, 0.96);
+  background: #ffffff;
   border: 1px solid rgba(var(--cyan-rgb), 0.24);
   border-radius: 8px;
-  box-shadow: 0 24px 72px rgba(5, 6, 7, 0.2);
-  backdrop-filter: blur(18px);
+  box-shadow: 0 18px 46px rgba(5, 6, 7, 0.16);
+  contain: layout paint;
 }
 
 .cookie-banner strong {
@@ -2096,38 +2094,6 @@ h3 {
     animation-delay: 120ms;
   }
 
-  .reveal,
-  .stagger-item {
-    opacity: 0;
-    transform: translateY(26px);
-    transition: opacity 560ms ease, transform 560ms ease;
-  }
-
-  .reveal.is-visible,
-  .stagger-item.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .stagger-item:nth-child(2) {
-    transition-delay: 80ms;
-  }
-
-  .stagger-item:nth-child(3) {
-    transition-delay: 150ms;
-  }
-
-  .stagger-item:nth-child(4) {
-    transition-delay: 220ms;
-  }
-
-  .stagger-item:nth-child(5) {
-    transition-delay: 290ms;
-  }
-
-  .stagger-item:nth-child(6) {
-    transition-delay: 360ms;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

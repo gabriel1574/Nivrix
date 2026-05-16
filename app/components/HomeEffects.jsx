@@ -9,22 +9,46 @@ export default function HomeEffects() {
     const hero = document.querySelector(".hero");
     if (!hero) return undefined;
 
+    const canTrackPointer =
+      window.matchMedia("(pointer: fine)").matches &&
+      window.matchMedia("(prefers-reduced-motion: no-preference)").matches;
+    if (!canTrackPointer) return undefined;
+
+    let frame = 0;
+    let latestEvent = null;
+
     const updateHeroPointer = (event) => {
-      const bounds = hero.getBoundingClientRect();
-      hero.style.setProperty("--hero-x", `${((event.clientX - bounds.left) / bounds.width) * 100}%`);
-      hero.style.setProperty("--hero-y", `${((event.clientY - bounds.top) / bounds.height) * 100}%`);
+      latestEvent = event;
+      if (frame) return;
+
+      frame = window.requestAnimationFrame(() => {
+        if (!latestEvent) return;
+
+        const bounds = hero.getBoundingClientRect();
+        hero.style.setProperty("--hero-x", `${((latestEvent.clientX - bounds.left) / bounds.width) * 100}%`);
+        hero.style.setProperty("--hero-y", `${((latestEvent.clientY - bounds.top) / bounds.height) * 100}%`);
+        frame = 0;
+      });
     };
 
     hero.addEventListener("pointermove", updateHeroPointer, { passive: true });
-    return () => hero.removeEventListener("pointermove", updateHeroPointer);
+    return () => {
+      hero.removeEventListener("pointermove", updateHeroPointer);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
   }, []);
 
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) return undefined;
+
     const progress = document.querySelector(".payment-progress span");
     const steps = Array.from(document.querySelectorAll(".payment-steps span"));
     if (!progress || steps.length === 0) return undefined;
 
     let activeStep = 0;
+    let interval = 0;
+
     const render = () => {
       progress.style.width = `${((activeStep + 1) / paymentStepsLength) * 100}%`;
       steps.forEach((step, index) => {
@@ -33,29 +57,31 @@ export default function HomeEffects() {
       activeStep = (activeStep + 1) % paymentStepsLength;
     };
 
-    const interval = window.setInterval(render, 1900);
-    return () => window.clearInterval(interval);
-  }, []);
+    const start = () => {
+      if (!interval) interval = window.setInterval(render, 1900);
+    };
 
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReducedMotion) return undefined;
+    const stop = () => {
+      if (!interval) return;
+      window.clearInterval(interval);
+      interval = 0;
+    };
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.18, rootMargin: "0px 0px -8% 0px" },
-    );
+    const updateTimer = () => {
+      if (document.hidden) {
+        stop();
+      } else {
+        start();
+      }
+    };
 
-    document.querySelectorAll(".reveal, .stagger-item").forEach((element) => observer.observe(element));
+    start();
+    document.addEventListener("visibilitychange", updateTimer);
 
-    return () => observer.disconnect();
+    return () => {
+      stop();
+      document.removeEventListener("visibilitychange", updateTimer);
+    };
   }, []);
 
   return null;

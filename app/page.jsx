@@ -409,7 +409,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section clients-section reveal" id="clientes" aria-labelledby="clients-title">
+        <section className="section clients-section" id="clientes" aria-labelledby="clients-title">
           <div className="section-heading">
             <div>
               <div className="section-kicker">Quem São Nossos Clientes?</div>
@@ -425,7 +425,7 @@ export default function Home() {
 
           <div className="client-grid">
             {clients.map(({ icon: Icon, title, text, cta }) => (
-              <article className="client-card stagger-item interactive-surface" key={title}>
+              <article className="client-card" key={title}>
                 <Icon aria-hidden="true" />
                 <h3>{title}</h3>
                 <p>{text}</p>
@@ -435,7 +435,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="contact-section reveal" id="contato" aria-labelledby="contact-title">
+        <section className="contact-section" id="contato" aria-labelledby="contact-title">
           <div className="contact-panel">
             <div>
               <div className="section-kicker light">Contato</div>
