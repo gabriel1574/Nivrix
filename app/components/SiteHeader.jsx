@@ -30,7 +30,7 @@ export default function SiteHeader() {
   return (
     <header className={`site-header${isScrolled ? " is-scrolled" : ""}`}>
       <a className="brand" href="/" aria-label="Nivrix início">
-        <img className="brand-logo" src="/assets/LOGO.svg" alt="Nivrix" title="Nivrix" />
+        <img className="brand-logo" src="/assets/logotipo-nivrix-branco.svg" alt="Nivrix" title="Nivrix" />
       </a>
 
       <nav className="nav-links" aria-label="Navegação principal">
