@@ -319,6 +319,7 @@ h3 {
 }
 
 .button {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -328,7 +329,22 @@ h3 {
   border-radius: 7px;
   font-weight: 800;
   cursor: pointer;
+  overflow: hidden;
   transition: box-shadow 180ms ease, transform 180ms ease, background 180ms ease, border-color 180ms ease;
+}
+
+.button::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: linear-gradient(110deg, transparent 0%, rgba(255, 255, 255, 0.28) 46%, transparent 72%);
+  opacity: 0;
+  transform: translateX(-125%);
+  pointer-events: none;
+}
+
+.button:hover::after {
+  animation: buttonShineExit 680ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .button-primary {
@@ -339,7 +355,7 @@ h3 {
 
 .button-primary:hover {
   background: var(--cyan-2);
-  box-shadow: 0 18px 44px rgba(9, 169, 230, 0.34);
+  box-shadow: 0 14px 32px rgba(5, 6, 7, 0.16);
   transform: translateY(-2px);
 }
 
@@ -701,11 +717,12 @@ h3 {
   position: absolute;
   inset: 0;
   content: "";
-  background: linear-gradient(120deg, transparent 0%, rgba(9, 169, 230, 0.13) 42%, transparent 70%);
+  background: linear-gradient(110deg, transparent 0%, rgba(9, 169, 230, 0.14) 44%, transparent 72%);
   opacity: 0;
-  transform: translateX(-40%);
-  transition: opacity 220ms ease, transform 540ms ease;
+  transform: translateX(120%);
+  transition: opacity 180ms ease, transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
   pointer-events: none;
+  will-change: opacity, transform;
 }
 
 .interactive-surface:hover {
@@ -715,8 +732,7 @@ h3 {
 }
 
 .interactive-surface:hover::after {
-  opacity: 1;
-  transform: translateX(40%);
+  animation: surfaceShineExit 720ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .trust-logos span {
@@ -2158,6 +2174,40 @@ h3 {
 
   50% {
     translate: 0 -10px;
+  }
+}
+
+@keyframes surfaceShineExit {
+  0% {
+    opacity: 0;
+    transform: translateX(-120%);
+  }
+
+  18%,
+  68% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(120%);
+  }
+}
+
+@keyframes buttonShineExit {
+  0% {
+    opacity: 0;
+    transform: translateX(-125%);
+  }
+
+  20%,
+  58% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(125%);
   }
 }
 
