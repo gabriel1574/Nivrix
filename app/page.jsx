@@ -1,7 +1,3 @@
-"use client";
-
-import Image from "next/image";
-import { useEffect, useState } from "react";
 import {
   BadgeCheck,
   Building2,
@@ -13,6 +9,8 @@ import {
   UserRoundCheck,
   Zap,
 } from "lucide-react";
+import ContactForm from "./components/ContactForm";
+import HomeEffects from "./components/HomeEffects";
 import SiteFooter from "./components/SiteFooter";
 import SiteHeader from "./components/SiteHeader";
 
@@ -202,60 +200,6 @@ const structuredData = {
 };
 
 export default function Home() {
-  const [activePaymentStep, setActivePaymentStep] = useState(0);
-  const [heroPointer, setHeroPointer] = useState({ x: 74, y: 42 });
-
-  useEffect(() => {
-    const interval = window.setInterval(() => {
-      setActivePaymentStep((current) => (current + 1) % paymentSteps.length);
-    }, 1900);
-
-    return () => window.clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReducedMotion) return undefined;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.18, rootMargin: "0px 0px -8% 0px" },
-    );
-
-    document.querySelectorAll(".reveal, .stagger-item").forEach((element) => observer.observe(element));
-
-    return () => observer.disconnect();
-  }, []);
-
-  const updateHeroPointer = (event) => {
-    const bounds = event.currentTarget.getBoundingClientRect();
-    setHeroPointer({
-      x: ((event.clientX - bounds.left) / bounds.width) * 100,
-      y: ((event.clientY - bounds.top) / bounds.height) * 100,
-    });
-  };
-
-  const submitContact = (event) => {
-    event.preventDefault();
-
-    const formData = new FormData(event.currentTarget);
-    const nome = formData.get("nome") || "";
-    const email = formData.get("email") || "";
-    const projeto = formData.get("projeto") || "";
-    const body = [`Nome: ${nome}`, `E-mail: ${email}`, `Tipo de Negocio: ${projeto}`].join("\n");
-
-    window.location.href = `mailto:contato@nivrix.com?subject=${encodeURIComponent(
-      "Contato pelo site Nivrix",
-    )}&body=${encodeURIComponent(body)}`;
-  };
-
   return (
     <>
       <script
@@ -272,22 +216,20 @@ export default function Home() {
           className="hero"
           id="inicio"
           aria-labelledby="hero-title"
-          onPointerMove={updateHeroPointer}
           style={{
-            "--hero-x": `${heroPointer.x}%`,
-            "--hero-y": `${heroPointer.y}%`,
+            "--hero-x": "74%",
+            "--hero-y": "42%",
           }}
         >
-          <Image
+          <HomeEffects />
+          <img
             className="hero-image"
             src="/assets/nivrix-people-payments.webp"
             alt="Empreendedores digitais acompanhando pagamentos online em um ambiente moderno"
             title="Empreendedores digitais acompanhando pagamentos online"
-            fill
-            priority
             fetchPriority="high"
-            quality={62}
-            sizes="100vw"
+            loading="eager"
+            decoding="async"
           />
           <div className="hero-shade" />
           <div className="hero-glow" aria-hidden="true" />
@@ -316,11 +258,11 @@ export default function Home() {
             </div>
             <div className="payment-amount">R$ 842,90</div>
             <div className="payment-progress" aria-hidden="true">
-              <span style={{ width: `${((activePaymentStep + 1) / paymentSteps.length) * 100}%` }} />
+              <span style={{ width: `${(1 / paymentSteps.length) * 100}%` }} />
             </div>
             <div className="payment-steps">
               {paymentSteps.map((step, index) => (
-                <span className={index <= activePaymentStep ? "is-active" : ""} key={step}>
+                <span className={index === 0 ? "is-active" : ""} key={step}>
                   {step}
                 </span>
               ))}
@@ -352,13 +294,12 @@ export default function Home() {
               </p>
             </div>
             <figure className="human-photo">
-              <Image
+              <img
                 src="/assets/nivrix-ecommerce-payments.webp"
                 alt="Empreendedor de e-commerce acompanhando pagamentos aprovados"
                 title="Empreendedor de e-commerce acompanhando pagamentos aprovados"
-                fill
-                quality={58}
-                sizes="(max-width: 640px) calc(100vw - 36px), (max-width: 920px) calc(100vw - 48px), 495px"
+                loading="lazy"
+                decoding="async"
               />
               <figcaption>
                 <strong>Para pessoas reais vendendo todos os dias.</strong>
@@ -505,23 +446,7 @@ export default function Home() {
               </p>
             </div>
 
-            <form className="contact-form" onSubmit={submitContact}>
-              <label>
-                Nome
-                <input type="text" name="nome" autoComplete="name" required />
-              </label>
-              <label>
-                E-mail
-                <input type="email" name="email" autoComplete="email" required />
-              </label>
-              <label>
-                Tipo de Negócio
-                <textarea name="projeto" rows="4" required />
-              </label>
-              <button className="button button-primary" type="submit">
-                Quero Conhecer
-              </button>
-            </form>
+            <ContactForm />
           </div>
         </section>
       </main>

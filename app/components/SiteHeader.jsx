@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Menu } from "lucide-react";
 import { navGroups } from "../content";
 
 export default function SiteHeader() {
@@ -64,7 +63,9 @@ export default function SiteHeader() {
         aria-expanded={isMenuOpen}
         onClick={() => setIsMenuOpen((current) => !current)}
       >
-        <Menu aria-hidden="true" />
+        <span aria-hidden="true" />
+        <span aria-hidden="true" />
+        <span aria-hidden="true" />
       </button>
     </header>
   );
